@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,6 +15,17 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+
+  CollectionReference addUser =
+  FirebaseFirestore.instance.collection('users');
+  
+  Future<void> _registerUser() {
+    return addUser
+        .add({'Name': nameController.text, 'Email': emailController.text, 'Tel': mobileController.text})
+        .then((value) => print('User Added'))
+        .catchError((_) => print('Something Error In registering User'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,10 +101,13 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: () {
                   //we will trying to print input
-                  print(nameController.text);
-                  print(emailController.text);
-                  print(mobileController.text);
-                  print(addressController.text);
+                  // print(nameController.text);
+                  // print(emailController.text);
+                  // print(mobileController.text);
+                  // print(addressController.text);
+                  //Resigtering Users
+                _registerUser();
+
                 },
                 child: Text(
                   'Register',
@@ -105,5 +121,9 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  void submitForm() {
+    
   }
 }

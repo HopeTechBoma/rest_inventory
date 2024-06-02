@@ -1,0 +1,2 @@
+flutter.sdk=/home/bakolo/snap/flutter/common/flutter
+sdk.dir=/home/bakolo/Android/Sdk
